@@ -21,21 +21,11 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     xdg-utils \
     wget \
-    dbus-x11 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
-# Increase the number of file descriptors
-RUN echo "root soft nofile 65536" >> /etc/security/limits.conf && \
-echo "root hard nofile 65536" >> /etc/security/limits.conf
 
-# Increase the number of processes
-RUN echo "root soft nproc 65536" >> /etc/security/limits.conf && \
-echo "root hard nproc 65536" >> /etc/security/limits.conf
-
-# Set environment variables for D-Bus
-ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
 COPY package.json package-lock.json ./
 
