@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-    # Increase the shared memory size
-RUN echo "root soft nofile 65536" >> /etc/security/limits.conf && \
-    echo "root hard nofile 65536" >> /etc/security/limits.conf
 
 COPY package.json package-lock.json ./
 
