@@ -24,6 +24,13 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+    # Increase the shared memory size
+RUN mkdir /mnt/hugepages
+RUN mount -t tmpfs -o size=1G tmpfs /mnt/hugepages
+
+# Set the number of file descriptors
+RUN ulimit -n 65536
+
 COPY package.json package-lock.json ./
 
 # Install npm packages
