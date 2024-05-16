@@ -25,11 +25,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
     # Increase the shared memory size
-RUN mkdir /mnt/hugepages
-RUN mount -t tmpfs -o size=1G tmpfs /mnt/hugepages
-
-# Set the number of file descriptors
-RUN ulimit -n 65536
+RUN echo "root soft nofile 65536" >> /etc/security/limits.conf && \
+    echo "root hard nofile 65536" >> /etc/security/limits.conf
 
 COPY package.json package-lock.json ./
 
