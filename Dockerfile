@@ -1,10 +1,7 @@
 # Start with a node base image
-FROM node:20.8.1
+FROM node:20.8.1-buster-slim
 
-# Set the working directory
-WORKDIR /
-
-# Install necessary packages for chromium
+# Install necessary packages for Chromium
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
@@ -21,10 +18,22 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     xdg-utils \
     wget \
+    libappindicator3-1 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrender1 \
+    libxtst6 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-
+# Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
 # Install npm packages
@@ -32,9 +41,6 @@ RUN npm install
 
 # Copy the rest of your application
 COPY . .
-
-ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
-
 
 # Command to run your application
 CMD ["node", "index.mjs"]

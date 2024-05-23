@@ -3,15 +3,15 @@ import puppeteer from 'puppeteer';
 async function createBrowser() {
   return puppeteer.launch({
     args: [
-      '--enable-logging=stderr',
       '--no-sandbox',
       '--disable-setuid-sandbox',
+      '--disable-gpu',
       '--disable-dev-shm-usage',
       '--disable-accelerated-2d-canvas',
-      '--no-first-run',
+      '--disable-gl-drawing-for-tests',
+      '--single-process',
       '--no-zygote',
-      '--single-process', // This might increase memory consumption
-      '--disable-gpu',
+      '--disable-features=IsolateOrigins,site-per-process',
     ],
     headless: 'new',
   });
