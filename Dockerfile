@@ -33,6 +33,8 @@ RUN npm install
 # Copy the rest of your application
 COPY . .
 
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
 
 # Command to run your application
 CMD ["node", "index.mjs"]
