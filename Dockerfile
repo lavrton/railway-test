@@ -33,6 +33,9 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+# Set environment variable to prevent Chromium from using D-Bus
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
