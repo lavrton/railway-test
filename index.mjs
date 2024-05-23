@@ -9,7 +9,7 @@ async function createBrowser() {
       '--disable-dev-shm-usage',
       '--disable-accelerated-2d-canvas',
       '--disable-gl-drawing-for-tests',
-      // '--single-process',
+      '--single-process',
       '--no-zygote',
       '--disable-features=IsolateOrigins,site-per-process',
     ],
