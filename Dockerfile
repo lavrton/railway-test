@@ -1,7 +1,7 @@
 # Start with a node base image
 FROM node:20.8.1-buster-slim
 
-# Install necessary packages for Chromium
+# Install necessary packages for Chromium and other dependencies
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
@@ -30,6 +30,17 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
+    apt-transport-https \
+    curl \
+    gnupg \
+    hicolor-icon-theme \
+    libcanberra-gtk* \
+    libgl1-mesa-dri \
+    libgl1-mesa-glx \
+    libpangox-1.0-0 \
+    libpulse0 \
+    libv4l-0 \
+    fonts-symbola \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -39,11 +50,11 @@ ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
-# Install npm packages
+# Install npm packages including Puppeteer
 RUN npm install
 
 # Copy the rest of your application
 COPY . .
 
-# Command to run your application
-CMD ["node", "index.mjs"]
+# Add health check for Chromium
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 CMD curl --
