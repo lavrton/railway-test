@@ -50,11 +50,11 @@ ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
-# Install npm packages including Puppeteer
+# Install npm packages
 RUN npm install
 
 # Copy the rest of your application
 COPY . .
 
-# Add health check for Chromium
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 CMD curl --
+# Command to run your application
+CMD ["node", "index.mjs"]
