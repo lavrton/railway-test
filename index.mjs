@@ -1,25 +1,23 @@
-import puppeteer from 'puppeteer';
+import { fork } from 'child_process';
+import path from 'path';
 
-async function createBrowser() {
-  return puppeteer.launch({
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-    ],
-    headless: 'new',
-  });
-}
+const scriptPath = path.resolve('./startBrowser.mjs');
 
-async function run() {
+async function startProcesses() {
   for (let i = 0; i < 50; i++) {
-    const browser = await createBrowser();
-    console.log('created browser', i);
+    const child = fork(scriptPath);
+    child.on('message', (msg) => {
+      console.log(`Child ${i} message:`, msg);
+    });
+    child.on('exit', (code) => {
+      console.log(`Child ${i} exited with code ${code}`);
+    });
+    console.log('Started process', i);
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
-run().catch((e) => {
+startProcesses().catch((e) => {
   console.error(e);
   process.exit(1);
 });
