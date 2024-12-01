@@ -33,12 +33,14 @@ RUN npm install
 # Copy the rest of your application
 COPY . .
 
+# Add the entry point script to the container
+COPY entrypoint.sh /entrypoint.sh
 
-# Set ulimit to increase the maximum number of user processes and open files
-RUN ulimit -u 65535 && ulimit -n 65535
+# Make the script executable
+RUN chmod +x /entrypoint.sh
 
-# Set tini as the entry point
-ENTRYPOINT ["/usr/bin/tini", "--"]
+# Use the script as the entry point
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Command to run your application
 CMD ["node", "index.mjs"]
