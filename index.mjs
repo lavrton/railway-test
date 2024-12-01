@@ -3,7 +3,28 @@ import { exec } from 'child_process';
 
 async function createBrowser() {
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    args: [
+      '--no-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-dev-shm-usage',
+      '--disable-features=VizDisplayCompositor',
+      '--disable-background-networking',
+      '--disable-background-timer-throttling',
+      '--disable-client-side-phishing-detection',
+      '--disable-default-apps',
+      '--disable-gpu',
+      '--disable-renderer-backgrounding',
+      '--disable-sync',
+      '--disable-translate',
+      '--metrics-recording-only',
+      '--no-first-run',
+      '--no-sandbox',
+      '--safebrowsing-disable-auto-update',
+      '--disable-features=IsolateOrigins,site-per-process',
+      '--disable-site-isolation-trials',
+      '--renderer-process-limit=1', // Limit renderer threads
+      '--max-connections-per-host=10', // Limit network connections
+    ],
     headless: 'new',
   });
 
