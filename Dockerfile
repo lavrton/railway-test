@@ -4,7 +4,7 @@ FROM node:20.8.1
 # Set the working directory
 WORKDIR /
 
-# Install necessary packages for chromium
+# Install necessary packages for chromium and tini
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
@@ -21,9 +21,9 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     xdg-utils \
     wget \
+    tini \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
-
 
 COPY package.json package-lock.json ./
 
@@ -32,6 +32,9 @@ RUN npm install
 
 # Copy the rest of your application
 COPY . .
+
+# Set tini as the entry point
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Command to run your application
 CMD ["node", "index.mjs"]

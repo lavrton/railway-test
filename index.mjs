@@ -2,20 +2,18 @@ import puppeteer from 'puppeteer';
 import { exec } from 'child_process';
 
 async function createBrowser() {
-  return puppeteer.launch({
-    args: [
-      '--no-sandbox',
-      // '--disable-setuid-sandbox',
-      // '--disable-gpu',
-      // '--disable-dev-shm-usage',
-      // '--disable-accelerated-2d-canvas',
-      // '--disable-gl-drawing-for-tests',
-      // '--single-process',
-      // '--no-zygote',
-      // '--disable-features=IsolateOrigins,site-per-process',
-    ],
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
     headless: 'new',
   });
+
+  // Ensure browser process is handled properly
+  const browserProcess = browser.process();
+  browserProcess.on('exit', () => {
+    console.log(`Browser process ${browserProcess.pid} exited`);
+  });
+
+  return browser;
 }
 
 const logProcess = () => {
