@@ -35,7 +35,7 @@ async function run() {
     const browser = await createBrowser();
     console.log('created browser', i);
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    awaitbrowser.close();
+    await browser.close();
   }
   logProcess();
 }
