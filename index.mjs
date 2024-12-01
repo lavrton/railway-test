@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import { exec } from 'child_process';
 
 async function createBrowser() {
   return puppeteer.launch({
