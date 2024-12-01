@@ -33,6 +33,10 @@ RUN npm install
 # Copy the rest of your application
 COPY . .
 
+
+# Set ulimit to increase the maximum number of user processes and open files
+RUN ulimit -u 65535 && ulimit -n 65535
+
 # Set tini as the entry point
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
