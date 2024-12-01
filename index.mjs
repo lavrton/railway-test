@@ -4,7 +4,7 @@ import { exec } from 'child_process';
 async function createBrowser() {
   return puppeteer.launch({
     args: [
-      // '--no-sandbox',
+      '--no-sandbox',
       // '--disable-setuid-sandbox',
       // '--disable-gpu',
       // '--disable-dev-shm-usage',
