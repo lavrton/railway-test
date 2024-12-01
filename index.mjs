@@ -29,7 +29,7 @@ const logProcess = () => {
 async function run() {
   // Check process limit and current count
   logProcess();
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 50; i++) {
     const browser = await createBrowser();
     console.log('created browser', i);
     await new Promise((resolve) => setTimeout(resolve, 1000));
