@@ -4,15 +4,15 @@ import { exec } from 'child_process';
 async function createBrowser() {
   return puppeteer.launch({
     args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-gpu',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--disable-gl-drawing-for-tests',
-      '--single-process',
-      '--no-zygote',
-      '--disable-features=IsolateOrigins,site-per-process',
+      // '--no-sandbox',
+      // '--disable-setuid-sandbox',
+      // '--disable-gpu',
+      // '--disable-dev-shm-usage',
+      // '--disable-accelerated-2d-canvas',
+      // '--disable-gl-drawing-for-tests',
+      // '--single-process',
+      // '--no-zygote',
+      // '--disable-features=IsolateOrigins,site-per-process',
     ],
     headless: 'new',
   });
