@@ -5,18 +5,24 @@ async function createBrowser() {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
+      '--disable-gpu',
       '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gl-drawing-for-tests',
+      '--single-process',
+      '--no-zygote',
+      '--disable-features=IsolateOrigins,site-per-process',
     ],
     headless: 'new',
   });
 }
 
 async function run() {
-  const browser = await createBrowser();
-  console.log('Browser created');
-  // Keep the browser open for a bit to simulate work being done
-  await new Promise((resolve) => setTimeout(resolve, 10000));
-  await browser.close();
+  for (let i = 0; i < 50; i++) {
+    const browser = await createBrowser();
+    console.log('created browser', i);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
 }
 
 run().catch((e) => {
