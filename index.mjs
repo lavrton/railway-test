@@ -40,6 +40,9 @@ async function run() {
     if (browserProcess) browserProcess.kill();
   }
   logProcess();
+  exec('ps -aux | grep chrome', (error, stdout) => {
+    console.log(`Chrome processes:\n${stdout}`);
+  });
 }
 
 run().catch((e) => {
