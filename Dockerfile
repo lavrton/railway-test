@@ -34,13 +34,13 @@ RUN npm install
 COPY . .
 
 # Add the entry point script to the container
-COPY entrypoint.sh /entrypoint.sh
+# COPY entrypoint.sh /entrypoint.sh
 
 # Make the script executable
-RUN chmod +x /entrypoint.sh
+# RUN chmod +x /entrypoint.sh
 
 # Use the script as the entry point
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
 
 # Command to run your application
 CMD ["node", "index.mjs"]
